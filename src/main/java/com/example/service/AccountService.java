@@ -35,4 +35,9 @@ public class AccountService {
     
     }
 
+    public boolean accountExists(int id){
+
+       return acctRepository.existsById(id);
+    }
+
 }

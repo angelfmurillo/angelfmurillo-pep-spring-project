@@ -1,10 +1,13 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -19,8 +22,9 @@ import com.example.service.MessageService;
 
         @Autowired
         private AccountService acctService;
-        //    @Autowired
-        //    private MessageService msgService;
+        
+        @Autowired
+        private MessageService msgService;
 
         //## 1: Our API should be able to process new User registrations.
         @PostMapping("/register")
@@ -56,5 +60,35 @@ import com.example.service.MessageService;
 
         }
 
+
+        @PostMapping("/messages")
+        public ResponseEntity<Message> postMessagesHandler(@RequestBody Message userMessage){
+
+            String msg = userMessage.getMessageText();
+            int postedById = userMessage.getPostedBy();
+            long timePosted = userMessage.getTimePostedEpoch();
+
+            int messageMaxLength = 255;
+
+            if (msg.isBlank() || msg.length() > messageMaxLength
+                || !acctService.accountExists(postedById)) 
+            
+            { return ResponseEntity.badRequest().build();}
+
+            Message addedMsg = msgService.addMessage(msg, postedById, timePosted);
+            
+            if (addedMsg != null){ return ResponseEntity.ok(addedMsg); }
+            else return ResponseEntity.badRequest().build();
+        }
+
+        @GetMapping("/messages")
+        public ResponseEntity<List<Message>> getMessagesHandler(){
+
+            List<Message> allMsgs = msgService.getAllMessages();
+
+            return ResponseEntity.ok(allMsgs);
+            
+
+        } 
 
     }
