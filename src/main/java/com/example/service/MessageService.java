@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Message;
 import com.example.repository.MessageRepository;
 
+/**
+ * MessageService provides business logic for handling operations related to messages 
+ * in the social media application. It supports adding new messages, retrieving all 
+ * messages or messages by ID, deleting and updating existing messages, and retrieving 
+ * messages posted by a specific user. This service layer interacts with the 
+ * MessageRepository to perform CRUD operations against the underlying database.
+ */
 @Service
 public class MessageService {
 

@@ -6,6 +6,14 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Account;
 import com.example.repository.AccountRepository;
 
+/**
+ * AccountService contains the business logic related to user account operations 
+ * in the social media application. It handles user registration by checking for 
+ * duplicate usernames, processes user login by validating credentials, and verifies 
+ * the existence of accounts by ID. This service communicates with the AccountRepository 
+ * to perform necessary database operations.
+ */
+
 @Service
 public class AccountService {
 
