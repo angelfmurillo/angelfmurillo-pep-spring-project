@@ -59,4 +59,10 @@ public class MessageService {
         
         return rowsUpdated;
     }
+
+    public List<Message> getMessagesByAccountId(int accountId){
+
+        return msgRepo.findByPostedBy(accountId);
+        
+    } 
 }

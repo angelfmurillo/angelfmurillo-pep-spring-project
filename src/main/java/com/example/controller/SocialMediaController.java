@@ -136,4 +136,11 @@ import com.example.service.MessageService;
 
         }
 
+        @GetMapping("/accounts/{accountId}/messages")
+        public ResponseEntity<List<Message>> getMessagesByAccountIdHandler(@PathVariable("accountId") int accountId){
+
+            List<Message> userMessages = msgService.getMessagesByAccountId(accountId);
+            return ResponseEntity.ok(userMessages);
+        }
+
     }
