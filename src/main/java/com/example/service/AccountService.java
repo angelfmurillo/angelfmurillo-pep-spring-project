@@ -30,9 +30,7 @@ public class AccountService {
         if (optAccount.isPresent() && optAccount.get().getPassword().equals(password)) {
             return optAccount.get();
         }
-
         return null;
-    
     }
 
     public boolean accountExists(int id){

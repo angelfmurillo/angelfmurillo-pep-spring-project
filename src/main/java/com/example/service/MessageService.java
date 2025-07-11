@@ -18,7 +18,6 @@ public class MessageService {
     public Message addMessage(String msgText, int postedBy, long timePosted){
 
         Message newMsg = new Message(postedBy, msgText, timePosted);
-
         return msgRepo.save(newMsg);
     }
 
@@ -63,6 +62,6 @@ public class MessageService {
     public List<Message> getMessagesByAccountId(int accountId){
 
         return msgRepo.findByPostedBy(accountId);
-        
+
     } 
 }
