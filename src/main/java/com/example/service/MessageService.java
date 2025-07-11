@@ -43,4 +43,20 @@ public class MessageService {
 
         return null;
     }
+
+    public boolean updateMessage(int messageId, String newText){
+
+        Optional<Message> optMsg = msgRepo.findById(messageId);
+        boolean rowsUpdated = false;
+        Message msg = null;
+
+        if (optMsg.isPresent()){
+            msg = optMsg.get();
+            msg.setMessageText(newText);
+            msgRepo.save(msg);
+            rowsUpdated = true;
+        }
+        
+        return rowsUpdated;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -114,9 +115,25 @@ import com.example.service.MessageService;
             }
             else
                return ResponseEntity.ok().build();
-
-
         }
 
+        @PatchMapping("messages/{message_id}")
+        public ResponseEntity<Integer> patchMessageByIdHandler(@PathVariable("message_id") int msgId, @RequestBody Message msg) {
+                                                            
+            String msgText = msg.getMessageText();
+            int msgMaxLength = 255;
+
+            if (msgText == null || msgText.isBlank() || msgText.length() >= msgMaxLength){
+                return ResponseEntity.badRequest().build();
+            }
+
+            boolean rowsUpdated = msgService.updateMessage(msgId, msgText);
+
+            if (rowsUpdated){
+                return ResponseEntity.ok(1);
+            }
+            else return ResponseEntity.badRequest().build();
+
+        }
 
     }
