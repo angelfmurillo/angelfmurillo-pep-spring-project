@@ -44,7 +44,7 @@ import com.example.service.MessageService;
               return ResponseEntity.status(409).build();
         }
 
-
+        //API should be able to process user logins
         @PostMapping("/login")
         public ResponseEntity<Account> loginAccount(@RequestBody Account loginReq){
 
@@ -90,5 +90,33 @@ import com.example.service.MessageService;
             
 
         } 
+
+
+        //retrieve a message by its ID
+        @GetMapping("/messages/{message_id}")
+        public ResponseEntity<Message> getMessageByIdHandler(@PathVariable("message_id") int msgId){
+
+            Message foundMsg = msgService.getMessageById(msgId);
+
+            if (foundMsg != null){
+                return ResponseEntity.ok(foundMsg);
+            }
+            else return ResponseEntity.ok().build();
+        }
+
+        @DeleteMapping("/messages/{message_id}")
+        public ResponseEntity<Integer> deleteMessageByIdHandler(@PathVariable("message_id") int msgId){
+
+            Message deletedMsg = msgService.deleteMsgById(msgId);
+
+            if (deletedMsg != null){
+                return ResponseEntity.ok(1);
+            }
+            else
+               return ResponseEntity.ok().build();
+
+
+        }
+
 
     }
